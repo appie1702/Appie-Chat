@@ -9,6 +9,11 @@
   },
   "author": "Arpit Abhyankar",
   "license": "ISC",
+  "engines": {
+    "node": "16.15.0",
+    "npm": "8.5.5"
+  },
+
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
