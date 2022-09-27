@@ -28,7 +28,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
             <ModalOverlay />
             <ModalContent h="410px">
                 <ModalHeader
-                    fontSize="40px"
+                    fontSize="35px"
                     fontFamily="Work sans"
                     display="flex"
                     justifyContent="center"
@@ -43,15 +43,16 @@ const { isOpen, onOpen, onClose } = useDisclosure();
                 justifyContent="space-between"
             >
                 <Image
-                    borderRadius="full"
-                    boxSize="150px"
+                    borderRadius="1vh"
+                    boxSize="162px"
                     src={user.pic}
                     alt={user.name}
                 />
 
                 <Text
-                    fontSize={{ base : "28px", md: "30px"}}
+                    fontSize={{ base : "28px", md: "25px"}}
                     fontFamily="Work sans"
+                    fontWeight="bold"
                 >
                     Email: {user.email}
                 </Text>

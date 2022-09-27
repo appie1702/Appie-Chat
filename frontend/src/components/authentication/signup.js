@@ -4,11 +4,11 @@ import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import { ChatState } from '../../Context/chatprovider';
 const Signup = () => {
-    const [email,setemail] = useState(null);
-    const [name,setname] = useState(null);
-    const [password,setpassword] = useState(null);
-    const [confirmpassword,setconfirmpassword] = useState(null);
-    const [pic,setpic] = useState(null);
+    const [email,setemail] = useState();
+    const [name,setname] = useState();
+    const [password,setpassword] = useState();
+    const [confirmpassword,setconfirmpassword] = useState();
+    const [pic,setpic] = useState();
     const [show,setshow] = useState(false);
     const [loading,setloading] = useState(false);
     const history = useHistory();
@@ -83,7 +83,7 @@ const Signup = () => {
         setloading(false);
         return;
         }
-        
+        console.log(name, email, password, pic);
         try {
             const config = {
                 headers: {
@@ -91,12 +91,13 @@ const Signup = () => {
                 },
             };
             
-            const {userdata} = await axios.post(
+            const userdata = await axios.post(
                 "/api/user", 
                 {name,email,password,pic},
                 config
                 );
-
+            console.log(userdata);
+            
             toast({
                 title: 'Registration is successful!',
                 status: 'success',
@@ -114,7 +115,6 @@ const Signup = () => {
             toast({
                 title: 'Error Occured!, Try after sometime:(',
                 status: 'warning',
-                description: error.response.data.message,
                 duration: 5000,
                 isClosable: true,
                 position: "bottom",
