@@ -33,7 +33,7 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
     
     //used when actually typing a message and emiting to 
     //socket("typing") or socket("stoptyping").
-    const [typing,settyping] = useState(false);
+    //const [typing,settyping] = useState(false);
 
 
     const defaultOptions = {
@@ -153,30 +153,18 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
 
 
 
-    const typingHandler = (e)=>{
+    const typingHandler = async (e)=>{
         setnewMessage(e.target.value);
-
-        //typing indicator logic
-
-        if(!socketconnected) return;
-
-        if (!typing) {
-            settyping(true);
-            socket.emit("typing", selectedChat._id);
-            }
-            let lastTypingTime = new Date().getTime();
-            var timerLength = 3000;
-            setTimeout(() => {
-            var timeNow = new Date().getTime();
-            var timeDiff = timeNow - lastTypingTime;
-            if (timeDiff >= timerLength && typing) {
-                socket.emit("stoptyping", selectedChat._id);
-                settyping(false);
-            }
-            }, timerLength);
     };
 
-
+    
+    if (selectedChat){
+        if (newMessage===""){
+            socket.emit("stoptyping", selectedChat._id);
+        }else{
+            socket.emit("typing", selectedChat._id)
+        };
+    }
 
     return (
         <>
