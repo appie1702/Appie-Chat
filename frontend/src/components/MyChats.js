@@ -106,7 +106,16 @@ const MyChats = ({fetchagain, setfetchagain}) => {
                   {loggedUser && !chat.isGrpChat? (
                     getSender(loggedUser.data, chat.users)
                   ) : (chat.chatName)}
+                  
                 </Text>
+                {chat.latestMessage && 
+                <Text fontSize="xs">
+                  <b>{ chat.isGrpChat && chat.latestMessage.sender.name + ":"} </b>
+                  {chat.latestMessage.content.length > 50
+                  ? chat.latestMessage.content.substring(0,51) + "..."
+                  : chat.latestMessage.content}
+                </Text>
+                }
               </Box>
             ))}
           </Stack>
@@ -115,7 +124,7 @@ const MyChats = ({fetchagain, setfetchagain}) => {
         )}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 export default MyChats;

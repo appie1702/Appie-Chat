@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { ChatState } from '../Context/chatprovider'
-import { Box,FormControl,IconButton,Input,Spinner,Text, useToast } from '@chakra-ui/react';
+import { InputGroup, Box,FormControl,IconButton,Input,Spinner,Text, useToast, InputRightElement, Button, Tooltip } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { getSender,getSenderFull } from '../Config/chatlogics';
 import ProfileModal from './miscellaneous/ProfileModal';
@@ -8,11 +8,13 @@ import UpdateGrpChatModal
  from './miscellaneous/UpdateGrpChatModal';
 import { useState } from 'react';
 import axios from 'axios';
-import "./messageStyle.css";
+import "./someStyles.css";
 import ScrollabelChat from './ScrollabelChat';
 import io from 'socket.io-client'
 import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
+import EmojiPicker from 'emoji-picker-react';
+
 
 const ENDPOINT = "https://appie-chat.herokuapp.com/";
 
@@ -25,7 +27,7 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
     const toast = useToast();
     const {user,selectedChat, setSelectedChat, notification, setnotification} = ChatState();
     const [socketconnected,setsocketConnected] = useState(false);
-    
+    const [show_emojis, set_show_emojis] = useState(false);
     
     //used when listening to socket("typing") or socket("stoptyping")
     //and displaying that loading icon.
@@ -129,6 +131,8 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
 
     useEffect(()=>{
         fetchMessages();
+        setnewMessage("");
+        set_show_emojis(false);
         not_to_be_noti = selectedChat;
     },[selectedChat]);
 
@@ -158,6 +162,11 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
     };
 
     
+    const handleEmojiClick = async(e)=>{
+        console.log(e);
+        setnewMessage(newMessage+e.emoji);
+    };
+
     if (selectedChat){
         if (newMessage===""){
             socket.emit("stoptyping", selectedChat._id);
@@ -203,7 +212,7 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                                 )}
                             </Text>
                             <Box
-                                bg="gray.200"
+                                className='bg2_add'
                                 display="flex"
                                 flexDir="column"
                                 justifyContent="flex-end"
@@ -228,11 +237,16 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
 
                                     />
                                 ) : (
-                                    <div className='messages'>
+                                    <div className='messages' onClick={()=>set_show_emojis(false)}>
                                         <ScrollabelChat messages={messages}/>
                                     </div>
                                 )}
 
+                                {show_emojis && 
+                                    <div class="dropdown-content">
+                                        <EmojiPicker height={400} width={300} onEmojiClick={(e)=>handleEmojiClick(e)} suggestedEmojisMode="recent"/>
+                                    </div>
+                                }
                                 <FormControl onKeyDown={sendMessage} isRequired mt={3}>
                                     
                                     {isTyping?
@@ -244,23 +258,33 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                                         /></div>) : 
                                         (<></>)
                                     }
+                                    <InputGroup>
                                     <Input
-                                        variant="filled"
+                                        variant="outline"
                                         bg="#E0E0E0"
                                         placeholder='Enter a message'
                                         value={newMessage}
                                         onChange = {typingHandler}
                                     />
+                                        <InputRightElement width={"1rem"} p={3} mr={4}>
+                                            <Tooltip 
+                                                color="white"
+                                                label="Emojis"
+                                                hasArrow
+                                                placement='bottom-end'>
+                                                    <i class='far fa-grin-beam' style={{fontSize:"24px"}} onClick={()=>set_show_emojis(!show_emojis)}></i>
+                                            </Tooltip>
+                                        </InputRightElement>
+                                    </InputGroup>
+                                    
                                 </FormControl>
 
                             </Box>
-
-
                         </>
                 ) : (
-                    <Box display="flex" alignItems="center" justifyContent="center" h="100%">
-                        <Text fontSize="3xl" pb={3} fontFamily="Work sans">
-                            Click on the user to start chatting
+                    <Box className='bg3_add' display="flex" alignItems="center" justifyContent="center" w="100%" h="100%">
+                        <Text fontSize="5xl" pb={3} fontFamily="Work sans" color="white">
+                            <b>Click on the user to start chatting</b>
                         </Text>
                     </Box>
                 )
@@ -270,4 +294,4 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
     );
 }
 
-export default SingleChat
+export default SingleChat;
