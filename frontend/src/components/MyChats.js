@@ -6,7 +6,7 @@ import { AddIcon } from '@chakra-ui/icons';
 import { getSender } from '../Config/chatlogics';
 import Chatloading from './miscellaneous/Chatloading';
 import GroupChatModal from './miscellaneous/GroupChatModal';
-
+import "./someStyles.css"
 const MyChats = ({fetchagain, setfetchagain}) => {
   const toast = useToast();
   const [loggedUser, setLoggedUser] = useState(null);
@@ -43,19 +43,19 @@ const MyChats = ({fetchagain, setfetchagain}) => {
 
   return (
     <Box
-      color="black"
+      color="white"
       display={{base: selectedChat ? "none":"flex", md: "flex"}}
       flexDir="column"
       alignItems="center"
       p={3}
-      bg="white"
+      bg="blackAlpha.300"
+      backdropFilter="revert" 
+      backdropBlur="6px"
       w={{base: "100%", md: "31%"}}
       borderRadius="lg"
-      borderWidth="1px"
-
     >
       <Box 
-        color="black"
+        color="white"
         pb={3}
         px={3}
         fontSize={{base:"28px", md:"30px"}}
@@ -69,7 +69,7 @@ const MyChats = ({fetchagain, setfetchagain}) => {
 
         <GroupChatModal fetchagain={fetchagain} setfetchagain={setfetchagain}>
           <Button
-            color="black"
+            colorScheme="teal"
             display="flex"
             fontSize={{base: "17px", md: "10px", lg:"17px"}}
             rightIcon={<AddIcon/>}
@@ -80,10 +80,10 @@ const MyChats = ({fetchagain, setfetchagain}) => {
       </Box>
 
       <Box
+        className='bg4_add'
         display="flex"
         flexDir="column"
         p={3}
-        bg="#F8F8F8"
         w="100%"
         h="100%"
         borderRadius="lg"

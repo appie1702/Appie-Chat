@@ -3,7 +3,7 @@ import React from 'react'
 import ScrollableFeed from "react-scrollable-feed";
 import { isLastMessage, SameSenderMargin, isSameUser, showAvatar } from '../Config/chatlogics';
 import { ChatState } from '../Context/chatprovider';
-
+import "./someStyles.css"
 const ScrollabelChat = ({messages}) => {
   const {user} = ChatState();
 
@@ -34,11 +34,8 @@ const ScrollabelChat = ({messages}) => {
         }
 
         <span
+          className='mess_style'
           style={{
-            backgroundColor:`${
-
-              (!m.sender || m.sender._id === user._id) ? "#BEE3F8" : "rgba(174, 239, 187, 0.8)"
-            }`,
             borderRadius:"20px",
             padding:"5px 15px",
             maxWidth:"75%",

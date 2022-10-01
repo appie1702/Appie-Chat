@@ -21,7 +21,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
         {children ? (
             <span onClick={onOpen}>{children}</span>
         ) : (
-            <IconButton display={{ base:"flex"}} icon={<ViewIcon />} onClick={onOpen}/>
+            <IconButton  colorScheme="teal" display={{ base:"flex"}} icon={<ViewIcon />} onClick={onOpen}/>
         )}
 
         <Modal size="lg" isOpen={isOpen} onClose={onClose} isCentered>

@@ -173,7 +173,7 @@ const GroupChatModal = ({children, fetchagain, setfetchagain}) => {
 
             </ModalBody>
             <ModalFooter>
-                <Button colorScheme='blue' onClick={handleSubmit}>
+                <Button colorScheme='teal' onClick={handleSubmit}>
                 Create Group
                 </Button>
             </ModalFooter>

@@ -23,7 +23,19 @@
 }
 
 .bg3_add{
-    background-image: url("../bg3.jpg");
+    background-image: url("../bg2.jpg");
         background-size: cover;
         background-position: center;
+}
+
+.bg4_add {
+    background-image: url("../bg4.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.mess_style {
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.1);
+    color: beige;
 }

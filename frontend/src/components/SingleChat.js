@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { ChatState } from '../Context/chatprovider'
-import { InputGroup, Box,FormControl,IconButton,Input,Spinner,Text, useToast, InputRightElement, Button, Tooltip } from '@chakra-ui/react';
+import { InputGroup, Box,FormControl,IconButton,Input,Spinner,Text, useToast, InputRightElement, Button, Tooltip, color } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { getSender,getSenderFull } from '../Config/chatlogics';
 import ProfileModal from './miscellaneous/ProfileModal';
@@ -187,10 +187,12 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                                 w="100%"
                                 fontFamily="Work sans"
                                 display="flex"
+                                color="white"
                                 justifyContent={{base: "space-between"}}
                                 alignItems="center"
                             >
                                 <IconButton
+                                    color="black"
                                     display={{base:"flex", md:"none"}}
                                     icon={<ArrowBackIcon/>}
                                     onClick={()=> setSelectedChat("")}
@@ -261,10 +263,12 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                                     <InputGroup>
                                     <Input
                                         variant="outline"
-                                        bg="#E0E0E0"
+                                        bg="blackAlpha.800"
+                                        color="white"
                                         placeholder='Enter a message'
                                         value={newMessage}
                                         onChange = {typingHandler}
+                                        borderColor="blackAlpha.200"
                                     />
                                         <InputRightElement width={"1rem"} p={3} mr={4}>
                                             <Tooltip 
@@ -272,7 +276,7 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                                                 label="Emojis"
                                                 hasArrow
                                                 placement='bottom-end'>
-                                                    <i class='far fa-grin-beam' style={{fontSize:"24px"}} onClick={()=>set_show_emojis(!show_emojis)}></i>
+                                                    <i class='far fa-grin-beam' style={{fontSize:"20px", color:"whitesmoke"}} onClick={()=>set_show_emojis(!show_emojis)}></i>
                                             </Tooltip>
                                         </InputRightElement>
                                     </InputGroup>
@@ -282,7 +286,7 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                             </Box>
                         </>
                 ) : (
-                    <Box className='bg3_add' display="flex" alignItems="center" justifyContent="center" w="100%" h="100%">
+                    <Box className='bg3_add' display="flex" alignItems="center" justifyContent="center" w="100%" h="100%" borderRadius="lg">
                         <Text fontSize="5xl" pb={3} fontFamily="Work sans" color="white">
                             <b>Click on the user to start chatting</b>
                         </Text>

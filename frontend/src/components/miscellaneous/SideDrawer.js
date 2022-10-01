@@ -9,6 +9,8 @@ import axios from 'axios';
 import Chatloading from './Chatloading';
 import UserListItem from '../../User Avatar/UserListItem';
 import NotificationBadge, { Effect } from 'react-notification-badge';
+import "../someStyles.css"
+
 
 const SideDrawer = () => {
   const [search,setsearch] = useState("");
@@ -117,9 +119,10 @@ const SideDrawer = () => {
       display="flex"
       justifyContent='space-between'
       width="100%"
-      bg = "white"
+      bg="blackAlpha.400"
+      backdropFilter="revert" 
+      backdropBlur="6px"
       p="5px 10px 5px 10px"
-      borderWidth="2px"
       borderRadius="7px"
     >
       <Tooltip 
@@ -127,7 +130,7 @@ const SideDrawer = () => {
       label="Search Users to chat" 
       hasArrow
       placement='bottom-end'>
-        <Button color="black" variant="ghost" onClick={onOpen}>
+        <Button colorScheme='teal' variant='solid' onClick={onOpen}>
           <i class="fas fa-search" aria-hidden="true"></i>
           <Text display={{base:"none", md:"flex"}} px="4">
             Search User
@@ -135,7 +138,7 @@ const SideDrawer = () => {
         </Button>
       </Tooltip>
 
-      <Text as='b' color="black" fontSize="2xl" fontFamily="Work sans">
+      <Text as='b'  fontSize="3xl" fontFamily="Work sans">
         Appie Chat
       </Text>
 
@@ -145,14 +148,16 @@ const SideDrawer = () => {
             <NotificationBadge
               count={notification.length}
               effect={Effect.SCALE}
+              style={{color:"white"}}
+              containerStyle={{color:"black"}}
             />
-            <BellIcon color="black" fontSize="2xl" m={1}/>
+            <BellIcon fontSize="2xl" m={1}/>
           </MenuButton>
           <MenuList alignContent="center" justifyContent="center" color="black">
             {console.log(notification+"------------------")}
             {!notification.length && <MenuItem>No New Message</MenuItem>}
             {notification.map((notif) => (
-              <MenuItem key={notif._id} onClick={()=>{
+              <MenuItem  key={notif._id} onClick={()=>{
                 setSelectedChat(notif.chat);
                 setnotification(notification.filter((n)=>n !== notif))
               }}>
@@ -165,8 +170,8 @@ const SideDrawer = () => {
 
         </Menu>
 
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon color='black' />}>
+        <Menu >
+          <MenuButton colorScheme="teal" as={Button} rightIcon={<ChevronDownIcon color='black' />}>
             <Avatar size="sm" cursor='pointer' name={user.name} src={user.pic}></Avatar>
           </MenuButton>
           <MenuList color="black">
