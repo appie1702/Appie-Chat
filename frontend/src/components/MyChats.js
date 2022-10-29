@@ -66,7 +66,7 @@ const MyChats = ({fetchagain, setfetchagain}) => {
         alignItems="center"
       >
         My Chats
-
+        {console.log(chats)}
         <GroupChatModal fetchagain={fetchagain} setfetchagain={setfetchagain}>
           <Button
             colorScheme="teal"
@@ -89,7 +89,7 @@ const MyChats = ({fetchagain, setfetchagain}) => {
         borderRadius="lg"
         overflowY="hidden"
       >
-        {chats ? (
+        {chats.length !== 0 ? (
           <Stack overflowY="scroll">
             {chats.map((chat)=> (
               <Box
@@ -120,7 +120,11 @@ const MyChats = ({fetchagain, setfetchagain}) => {
             ))}
           </Stack>
         ) : (
-          <Chatloading/>
+          <Box display="flex" alignItems="center" justifyContent="center" w="100%" h="100%" borderRadius="lg">
+              <Text fontSize="2xl" pb={4} fontFamily="Work sans" color="white">
+                  <b>Search Your Friends or Guests</b>
+              </Text>
+          </Box>
         )}
       </Box>
     </Box>

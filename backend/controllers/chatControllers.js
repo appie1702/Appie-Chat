@@ -64,7 +64,6 @@ const fetchChats = asyncHandler(async (req,res) => {
             path:'latestMessage.sender',
         select: 'name pic email',
         });
-        console.log(result);
         res.status(200).send(result);
         });
 
@@ -84,7 +83,7 @@ const createGroupChat = asyncHandler(async (req,res) => {
     //in backend we have to parse it first before using it.
     var users = JSON.parse(req.body.users);
     console.log(users);
-    if (users<2) {
+    if (users.length<2) {
         return res.status(400).send({message: "More than 2 users are required to form a group chat"});
     };
     

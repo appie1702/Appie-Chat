@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Spinner,FormControl, Input, useDisclosure, useToast } from '@chakra-ui/react';
 import {
     Box,
@@ -21,7 +21,6 @@ const GroupChatModal = ({children, fetchagain, setfetchagain}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [grpChatName, setGrpChatName] = useState(null);
     const[selectedUsers,setSelectedUsers] = useState([]);
-    const [search,setsearch] = useState("");
     const [searchResult,setSearchResult] = useState([]);
     const [loading,setloading] = useState(false);
 
@@ -48,11 +47,9 @@ const GroupChatModal = ({children, fetchagain, setfetchagain}) => {
     };
 
     const handleSearch = async (query) => {
-        setsearch(query);
         if(!query){
             return;
         }
-
         try{
             setloading(true);
             const config = {
@@ -61,8 +58,7 @@ const GroupChatModal = ({children, fetchagain, setfetchagain}) => {
                 },
             };
 
-            const {data} = await axios.get(`/api/user?search=${search}`, config);
-            console.log(data);
+            const {data} = await axios.get(`/api/user?search=${query}`, config);
             setloading(false);
             setSearchResult(data);
 
@@ -128,7 +124,6 @@ const GroupChatModal = ({children, fetchagain, setfetchagain}) => {
         };
 
     };
-
 
     return (
         <>

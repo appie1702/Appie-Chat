@@ -16,6 +16,47 @@ const Signup = () => {
     const handleClick = () => setshow(!show);
     const {setuser} = ChatState();
 
+    const guestHandler = async () => {
+        setloading(true);
+        
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+            
+            const userdata = await axios.post(
+                "/api/user/login",
+                {email:"guest1@gmail.com", password:"123456"},
+                config
+            );
+
+            toast({
+                title: "Login Successful",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+
+            localStorage.setItem("userInfo", JSON.stringify(userdata));
+            setuser(userdata.data);
+            setloading(false);
+            history.push("/chats");
+
+        } catch(error) {
+            toast({
+                title: "Error Occured!",
+                description: error.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+            setloading(false);
+        }
+    };
 
     const postDetails = (pics) => {
         setloading(true);
@@ -131,6 +172,7 @@ const Signup = () => {
                 <FormLabel>Name</FormLabel>
                 <Input 
                     placeholder='Enter Your Name'
+                    value={name}
                     onChange={(e)=> setname(e.target.value)}
                 />
             </FormControl>
@@ -139,6 +181,7 @@ const Signup = () => {
                 <FormLabel>Email</FormLabel>
                 <Input
                     type="email"
+                    value={email}
                     placeholder='Enter Your Email'
                     onChange={(e)=> setemail(e.target.value)}
                 />
@@ -150,6 +193,7 @@ const Signup = () => {
                 <Input
                     type={show ? "text":"password"}
                     placeholder=''
+                    value={password}
                     onChange={(e)=> setpassword(e.target.value)}
                 />
                 <InputRightElement width={"4.5rem"}>
@@ -166,6 +210,7 @@ const Signup = () => {
                 <Input
                     type={show ? "text":"password"}
                     placeholder=''
+                    value={confirmpassword}
                     onChange={(e)=> setconfirmpassword(e.target.value)}
                 />
                 <InputRightElement width={"4.5rem"}>
@@ -176,7 +221,7 @@ const Signup = () => {
                 </InputGroup>
             </FormControl>
 
-            <FormControl id='pics' isRequired>
+            <FormControl id='pics'>
                 <FormLabel>Upload Your Picture</FormLabel>
                 <Input 
                     type="file"
@@ -200,9 +245,8 @@ const Signup = () => {
                 colorScheme="blue"
                 width="100%"
                 style={{marginTop: 15}}
-                onClick={() => {
-                    setemail("guest@example.com");
-                    setpassword("123456");
+                onClick={async() => {
+                    guestHandler();
                 }}
             >
                 Just want to be a guest
@@ -211,4 +255,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Signup;

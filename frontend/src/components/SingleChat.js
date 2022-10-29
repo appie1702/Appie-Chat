@@ -32,10 +32,6 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
     //used when listening to socket("typing") or socket("stoptyping")
     //and displaying that loading icon.
     const [isTyping,setisTyping] = useState(false);
-    
-    //used when actually typing a message and emiting to 
-    //socket("typing") or socket("stoptyping").
-    //const [typing,settyping] = useState(false);
 
 
     const defaultOptions = {
@@ -47,6 +43,41 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
         },
     };
 
+
+    const addNoti = async (messID, userID)=>{
+        if(!messID || !userID){
+            console.log("messId or UserID for adding noti is missing");
+            return;
+        };
+
+        try {
+            const config = {
+                headers:{
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${user.token}`
+                },    
+            };
+
+            const {data} = await axios.post("/api/notifications/add",
+                {
+                    messID: messID,
+                    userID: userID
+                },
+                config,
+            );
+            console.log(messID, userID,data,"inside add noti function.");
+            //do something with the notification data.
+
+        }catch(error){
+            toast({
+            title: "Error occured while sending noti",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+            });
+        };
+    }
 
 
     const fetchMessages = async ()=> {
@@ -98,6 +129,16 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
                 },
                 config
                 );
+                
+                await data.chat.users.forEach((userrr)=>{
+                    if(userrr._id === data.sender._id) return;
+                    addNoti(data._id, userrr._id);
+                    console.log("noti added !!!!!!!!!!!!!!!")
+                });
+                console.log(data, "inside sending message");
+                
+                //calling the addNoti function when necesary.
+                
                 socket.emit('new message', data);
                 setMessages([...messages,data]);
             }catch(error) {
@@ -122,8 +163,8 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
     //where you are using socket, cause first we have to 
     //create a socket which is happening in this useEffect:)
     useEffect(()=>{
-        socket = io(ENDPOINT);    
-        socket.emit("setup", user);    
+        socket = io(ENDPOINT);
+        socket.emit("setup", user);
         socket.on("connected", ()=> setsocketConnected(true));
         socket.on("typing", ()=>setisTyping(true));
         socket.on("stoptyping", ()=> setisTyping(false));
@@ -140,9 +181,15 @@ const SingleChat = ({fetchagain, setfetchagain}) => {
 //this useEffect should not contain "[]" as we want it to
 //run everytime any state changes.
     useEffect(()=>{
+
+        //*we have to check at what point this useEffect is being called*//
+
         socket.on("message recieved",(newMessageReceieved) => {
             if(!not_to_be_noti || not_to_be_noti._id !== newMessageReceieved.chat._id){
                 if(!notification.includes(newMessageReceieved)) {
+
+                    //add the noti to recipient
+
                     setnotification([newMessageReceieved,...notification]);
                     //remember fetchagain is for fetching chats again not for messages.
                     //as when message is sent, chat is updated so the order of chats array 

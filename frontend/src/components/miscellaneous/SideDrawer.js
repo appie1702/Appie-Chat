@@ -25,6 +25,29 @@ const SideDrawer = () => {
 
 
 
+  const fetchNotifs = async()=>{
+    try{
+      const config = {
+            headers:{
+              Authorization: `Bearer ${user.token}`
+              },
+            };
+      const {data} = await axios.get(`/api/notifications`,config);
+      //setnotification(data);
+      console.log(data);
+
+    }catch(error){
+      toast({
+            title: "Error occured:(",
+            description:"Failed to load notifications",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-left",
+            });
+    };
+  };
+
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
     setuser(null);
@@ -112,6 +135,10 @@ const SideDrawer = () => {
       return;
     }
   }
+
+  useEffect(()=>{
+    fetchNotifs();
+  },[])
 
   return (
     <>

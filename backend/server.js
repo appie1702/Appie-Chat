@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const colors = require("colors");
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const notiRoutes = require('./routes/notiRoutes');
 const app = express();
 const { notfound, errorHandler } = require("./middleware/errorMiddleware") 
 const messageRoutes = require("./routes/messageRoutes");
@@ -17,9 +18,10 @@ app.use(express.json()); //to accept json data from frontend
 
 
 
-app.use('/api/user', userRoutes)
+app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use("/api/message", messageRoutes);
+app.use('/api/notifications', notiRoutes);
 
 
 
@@ -35,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
   );
 } else {
   app.get("/", (req, res) => {
-    console.log("--------------");
+    console.log(connect.Noti);
     res.send("API is running..");
   });
 }
