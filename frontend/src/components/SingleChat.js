@@ -16,7 +16,7 @@ import animationData from "../animations/typing.json";
 import EmojiPicker from 'emoji-picker-react';
 
 
-const ENDPOINT = "https://appie-chat.herokuapp.com/";
+const ENDPOINT = "https://appie-chat-api.onrender.com/";
 
 var socket,not_to_be_noti;
 
