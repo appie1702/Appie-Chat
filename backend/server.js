@@ -11,6 +11,7 @@ const app = express();
 const { notfound, errorHandler } = require("./middleware/errorMiddleware") 
 const messageRoutes = require("./routes/messageRoutes");
 const path = require('path');
+const cors = require()
 dotenv.config();
 connectDB();
 
@@ -22,11 +23,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use("/api/message", messageRoutes);
 app.use('/api/notifications', notiRoutes);
-app.use(
-  cors({
-    origin: ['http:/localhost:3000','https://appie-chat.onrender.com/']
-  })
-)
 
 
 //-----------------------------Deployment---------------------//
@@ -55,7 +51,7 @@ const server = app.listen(PORT, console.log(`Server Started on Port ${PORT}`.yel
 const io = require("socket.io")(server,{
     pingTimeout: 60000,
     cors:{
-        origin: ["http://localhost:3000","https://appie-chat.onrender.com/"]
+        origin: "http://localhost:3000",
     }
 });
 
