@@ -11,7 +11,6 @@ const app = express();
 const { notfound, errorHandler } = require("./middleware/errorMiddleware") 
 const messageRoutes = require("./routes/messageRoutes");
 const path = require('path');
-const cors = require()
 dotenv.config();
 connectDB();
 
@@ -23,6 +22,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use("/api/message", messageRoutes);
 app.use('/api/notifications', notiRoutes);
+
 
 
 //-----------------------------Deployment---------------------//
