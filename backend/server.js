@@ -51,7 +51,7 @@ const server = app.listen(PORT, console.log(`Server Started on Port ${PORT}`.yel
 const io = require("socket.io")(server,{
     pingTimeout: 60000,
     cors:{
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000","https://appie-chat.onrender.com/"]
     }
 });
 
