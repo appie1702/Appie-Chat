@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false sudo delete web service appie-chat"
+    "build": "cd backend && npm install  && cd ../frontend && npm install && npm run build",
+    "start": "node backend/server.js "
   },
   "author": "Arpit Abhyankar",
   "license": "ISC",
