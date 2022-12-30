@@ -10,7 +10,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import "./someStyles.css";
 import ScrollabelChat from './ScrollabelChat';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
 import EmojiPicker from 'emoji-picker-react';
