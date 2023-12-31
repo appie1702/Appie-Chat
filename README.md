@@ -1,6 +1,4 @@
-### You can check out the live website of this project through the link:- [Appie Chat](https://appie-chat.onrender.com)
-
-This is a Real time chat application created with MERN stack. You can visit the live website link by clicking [here](https://appie-chat.onrender.com).
+### This is a Real time chat application created with MERN stack. You can visit the live website link by clicking [here](https://appie-chat.onrender.com).
 
 Technologies used in this project:-
 - MERN stack
