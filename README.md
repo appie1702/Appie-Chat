@@ -1,5 +1,16 @@
 ### You can check out the live website of this project through the link:- [Appie Chat](https://appie-chat.onrender.com)
 
-    Just for a quick experience of the website, Go to sign up section, and sign in as guest.
+This is a Real time chat application created with MERN stack. You can visit the live website link by clicking [here](https://appie-chat.onrender.com).
 
-    This website is created in MERN stack, which includes the use of Socket.io and many other useful modules and libraries.
+Technologies used in this project:-
+- MERN stack
+- Socket.io ( web socket for realtime chatting )
+- Chakra UI for styling
+- Cloudinary storage ( for images )
+
+Key Features:
+
+- Real time chatting with the help of socket.io
+- Personal or Group chat can be done
+- Support for Emojis
+- Realtime notifications
