@@ -12,7 +12,6 @@ const errorHandler = (err, req, res, next) => {
         //basically settings.DEBUG in django
         stack: process.env.NODE_ENV === "production" ? null : err.stack,
     });
-
 }
 
 module.exports = { notfound, errorHandler };

@@ -22,8 +22,6 @@ const ChatPage = () => {
             {user && <Chatbox fetchagain={fetchagain} setfetchagain={setfetchagain}/>}
         </Box>
     </div>
-
-
 };
 
 export default ChatPage;

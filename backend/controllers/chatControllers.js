@@ -54,7 +54,7 @@ const accessChat = asyncHandler(async (req,res) => {
 
 const fetchChats = asyncHandler(async (req,res) => {
     try{
-        chats = Chat.find({users: {$elemMatch: { $eq: req.user._id}}})
+        const chats = await Chat.find({users: {$elemMatch: { $eq: req.user._id}}})
         .populate("users", "-password")
         .populate("grpAdmin","-password")
         .populate("latestMessage")
